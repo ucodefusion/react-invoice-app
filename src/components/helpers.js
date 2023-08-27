@@ -1,4 +1,3 @@
-import React from 'react';
 
 export const calculateInvoiceTotals = (data, allItems, setData) => {
     const updatedInvoiceData = { ...data };

@@ -21,7 +21,7 @@ const BillingDetails = ({ data, setData }) => {
   };
   useEffect(() => {
     calculateInvoiceTotals(data, allItems, setData);
-  }, [allItems]);
+  }, [data, allItems, setData]);
 
   const handleDelete = (index) => {
     const updatedItems = allItems.filter((_, idx) => idx !== index);
