@@ -1,0 +1,39 @@
+{
+      "orgDetails": {
+    "company": "YXXXour Company",
+    "name": "Your Name",
+    "address": "Company's Address",
+    "cityStateZip": "City, State Zip",
+    "country": "United States"
+  }, 
+  "clientDetails": {
+    "name": "John Doe",
+    "address": "123 Main St, Anytown",
+    "cityStateZip": "Anytown, AT 12345",
+    "country": "United States"
+  },
+  "invoice": {
+    "number": "INV-12345",
+    "date": "Aug 27, 2023",
+    "dueDate": "Sep 27, 2023",
+    "items": [
+      {
+        "description": "Brochure Design",
+        "quantity": 2,
+        "rate": 100,
+        "amount": 200
+      },
+      {
+        "description": "Web Design",
+        "quantity": 1,
+        "rate": 500,
+        "amount": 500
+      }
+    ],
+    "subTotal": 700,
+    "tax": 70,
+    "total": 770
+  },
+  "notes": "Thank you for your business.",
+  "terms": "Payment is due within 30 days."
+}
