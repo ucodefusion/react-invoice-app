@@ -1,32 +1,27 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import InvoiceItem from '../InvoiceItems/InvoiceItem';
-import { calculateInvoiceTotals } from '../helpers';
+import { setItems, addItem, removeItem, setTotals } from '../../redux/slices/invoiceSlice';
 
-const BillingDetails = ({ data, setData }) => {
-  const [allItems, setAllItems] = React.useState(data.invoice.items);
-
+const BillingDetails = () => {
+  const dispatch = useDispatch();
+  const invoiceItems = useSelector(state => state.invoiceData.invoice.items);
+  console.log(">>>>>", invoiceItems);
   const handleDescriptionChange = (index, newDescription) => {
-    const updatedItems = [...allItems];
+    const updatedItems = [...invoiceItems];
     updatedItems[index].description = newDescription;
-    setAllItems(updatedItems);
+    dispatch(setItems(updatedItems));
   };
 
   const handleQuantityChange = (index, newQuantity) => {
-    const updatedItems = [...allItems];
+    const updatedItems = [...invoiceItems];
     updatedItems[index].quantity = newQuantity;
     updatedItems[index].amount = newQuantity * updatedItems[index].rate;
-
- 
-    setAllItems(updatedItems); 
+    dispatch(setItems(updatedItems));
   };
-  useEffect(() => {
-    calculateInvoiceTotals(data, allItems, setData);
-  }, [data, allItems, setData]);
 
   const handleDelete = (index) => {
-    const updatedItems = allItems.filter((_, idx) => idx !== index);
-    setAllItems(updatedItems);
- 
+    dispatch(removeItem(index));
   };
 
   const addNewItem = () => {
@@ -36,29 +31,14 @@ const BillingDetails = ({ data, setData }) => {
       rate: 10,
       amount: 10
     };
-    setAllItems(prevItems => [...prevItems, newItem]);
- 
+    dispatch(addItem(newItem));
   };
 
   const handleSave = () => {
-    const updatedInvoiceData = { ...data };
-    updatedInvoiceData.invoice.items = allItems;
-
-    const subTotal = allItems.reduce((sum, item) => sum + item.amount, 0);
+    const subTotal = invoiceItems.reduce((sum, item) => sum + item.amount, 0);
     const tax = 0.10 * subTotal;
     const total = subTotal + tax;
-
-    updatedInvoiceData.invoice.subTotal = subTotal;
-    updatedInvoiceData.invoice.tax = tax;
-    updatedInvoiceData.invoice.total = total;
-
-    // Update the main state (invoice data) in the parent component
-    setData(updatedInvoiceData);
-
-
-
-
-    console.log(data);
+    dispatch(setTotals({ subTotal, tax, total }));
   };
 
   return (
@@ -74,7 +54,7 @@ const BillingDetails = ({ data, setData }) => {
           </tr>
         </thead>
         <tbody>
-          {allItems.map((item, index) => (
+          {invoiceItems.map((item, index) => (
             <InvoiceItem
               key={index}
               description={item.description}

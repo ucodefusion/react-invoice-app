@@ -1,11 +1,11 @@
 {
-      "orgDetails": {
+  "orgDetails": {
     "company": "YXXXour Company",
     "name": "Your Name",
     "address": "Company's Address",
     "cityStateZip": "City, State Zip",
     "country": "United States"
-  }, 
+  },
   "clientDetails": {
     "name": "John Doe",
     "address": "123 Main St, Anytown",
@@ -16,8 +16,7 @@
     "number": "INV-12345",
     "date": "Aug 27, 2023",
     "dueDate": "Sep 27, 2023",
-    "items": [
-      {
+    "items": [{
         "description": "Brochure Design",
         "quantity": 2,
         "rate": 100,

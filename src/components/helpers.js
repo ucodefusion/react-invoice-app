@@ -1,5 +1,9 @@
+import { useDispatch } from 'react-redux';
+import { updateInvoiceTotals } from '../redux/slices/invoiceSlice';
 
-export const calculateInvoiceTotals = (data, allItems, setData) => {
+export const calculateInvoiceTotals = (data, allItems) => {
+    const dispatch = useDispatch();
+    
     const updatedInvoiceData = { ...data };
     updatedInvoiceData.invoice.items = allItems;
 
@@ -11,7 +15,6 @@ export const calculateInvoiceTotals = (data, allItems, setData) => {
     updatedInvoiceData.invoice.tax = tax;
     updatedInvoiceData.invoice.total = total;
 
-    // Update the main state (invoice data) in the parent component
-    setData(updatedInvoiceData);
-
+    // Dispatch the action to update the Redux store
+    dispatch(updateInvoiceTotals(updatedInvoiceData));
 }

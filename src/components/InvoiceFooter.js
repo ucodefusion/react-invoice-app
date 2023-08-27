@@ -1,15 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+const TAX_RATE = 0.10;  // Consider moving this to a constants/config file if used in other places.
 
 const InvoiceFooter = ({ items }) => {
-    
-    // Calculate Subtotal
-    
+
     const subTotal = items.reduce((sum, item) => sum + (item.quantity * item.rate), 0);
-
-    // Assuming tax rate is 10%
-    const tax = 0.10 * subTotal;
-
-    // Calculate total
+    const tax = TAX_RATE * subTotal;
     const total = subTotal + tax;
 
     return (
@@ -21,7 +18,7 @@ const InvoiceFooter = ({ items }) => {
                         <p>${subTotal.toFixed(2)}</p>
                     </div>
                     <div className="flex justify-between">
-                        <p>Sale Tax (10%):</p>
+                        <p>Sale Tax ({(TAX_RATE * 100).toFixed(0)}%):</p>
                         <p>${tax.toFixed(2)}</p>
                     </div>
                     <div className="flex justify-between font-bold">
@@ -40,6 +37,15 @@ const InvoiceFooter = ({ items }) => {
             </div>
         </footer>
     );
+};
+
+InvoiceFooter.propTypes = {
+    items: PropTypes.arrayOf(
+        PropTypes.shape({
+            quantity: PropTypes.number.isRequired,
+            rate: PropTypes.number.isRequired,
+        })
+    ).isRequired,
 };
 
 export default InvoiceFooter;
